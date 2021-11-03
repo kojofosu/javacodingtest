@@ -11,18 +11,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class Author {
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", unique = true, nullable = false)
-    String id;
-
     @Column(name = "firstname")
     String firstname;
 
     @Column(name = "lastname")
     String lastname;
 
+    @Id
     @Column(name = "email", unique = true, nullable = false)
     String email;
 

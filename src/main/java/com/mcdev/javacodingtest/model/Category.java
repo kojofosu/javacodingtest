@@ -12,11 +12,6 @@ import javax.persistence.*;
 @Setter
 public class Category {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", unique = true, nullable = false)
-    String id;
-
     @Column(name = "name", unique = true, nullable = false)
     String name;
 

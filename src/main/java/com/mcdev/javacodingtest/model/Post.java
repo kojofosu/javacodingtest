@@ -12,11 +12,6 @@ import javax.persistence.*;
 @Setter
 public class Post {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", unique = true, nullable = false)
-    String id;
-
     @Column(name = "title", unique = true, nullable = false)
     String title;
 
