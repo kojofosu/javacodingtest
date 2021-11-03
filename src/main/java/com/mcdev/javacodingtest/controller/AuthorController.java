@@ -20,18 +20,18 @@ public class AuthorController {
     AuthorService authorService;
 
     /*endpoint to add new author*/
-    @PostMapping(consumes = "application/*")
+    @PostMapping
     public ResponseEntity<AuthorResponse> addAuthor(@RequestBody Author author) {
         logger.info("Received request to add new author.");
         AuthorResponse response = authorService.addAuthor(author);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
-    /*endpoint to get author by id*/
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<AuthorResponse> getAuthorById(@PathVariable String id) {
-        logger.info("Received request to get author with id: " + id);
-        AuthorResponse response = authorService.getAuthorById(id);
+    /*endpoint to get author by email*/
+    @GetMapping(value = "/{email}")
+    public ResponseEntity<AuthorResponse> getAuthorByEmail(@PathVariable String email) {
+        logger.info("Received request to get author with email: " + email);
+        AuthorResponse response = authorService.getAuthorByEmail(email);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
@@ -46,16 +46,16 @@ public class AuthorController {
     /*endpoint to update author*/
     @PutMapping
     public ResponseEntity<AuthorResponse> updateAuthor(@RequestBody Author author) {
-        logger.info("Received request to update author with id " + author.getId());
+        logger.info("Received request to update author with email " + author.getEmail());
         AuthorResponse response = authorService.updateAuthor(author);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
     /*endpoint to delete an author*/
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<AuthorResponse> deleteAuthor(@PathVariable String id) {
-        logger.info("Received request to delete author with id: " + id);
-        AuthorResponse response = authorService.deleteAuthor(id);
+    @DeleteMapping(value = "/{email}")
+    public ResponseEntity<AuthorResponse> deleteAuthor(@PathVariable String email) {
+        logger.info("Received request to delete author with email: " + email);
+        AuthorResponse response = authorService.deleteAuthor(email);
         return new ResponseEntity<>(response, response.getStatus());
     }
 }

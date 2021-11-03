@@ -62,27 +62,27 @@ public class AuthorService {
         return response;
     }
 
-    public AuthorResponse getAuthorById(String id) {
+    public AuthorResponse getAuthorByEmail(String email) {
         AuthorResponse response = new AuthorResponse();
-        /*checking that id is not null*/
-        if (id == null) {
-            logger.info("Id cannot be null.");
+        /*checking that email is not null*/
+        if (!isEmailValid(email)) {
+            logger.info("email cannot be null.");
             response.setStatus(HttpStatus.BAD_REQUEST);
-            response.setErrormessage("Id cannot be null.");
+            response.setErrormessage("email cannot be null.");
         } else {
             try{
-                Optional<Author> authorOptional = authorRepository.findById(id);
-                /*checking if Author exists with that id and return appropriate status*/
+                Optional<Author> authorOptional = authorRepository.findById(email);
+                /*checking if Author exists with that email and return appropriate status*/
                 if (authorOptional.isPresent()) {
                     Author responseAuthor = authorOptional.get();
 
                     response.setData(responseAuthor);
                     response.setStatus(HttpStatus.OK);
-                    logger.info("Successfully fetched author with id: " + id);
+                    logger.info("Successfully fetched author with email: " + email);
                 } else {// else Author does not exist, return NOT_FOUND
-                    logger.info("Author with id: " + id + " does not exist.");
+                    logger.info("Author with email: " + email + " does not exist.");
                     response.setStatus(HttpStatus.NOT_FOUND);
-                    response.setErrormessage("Author with id: " + id + " does not exist.");
+                    response.setErrormessage("Author with email: " + email + " does not exist.");
                 }
             } catch (Exception e) {
                 response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -117,11 +117,7 @@ public class AuthorService {
         AuthorResponse response = new AuthorResponse();
 
         /*performing validation*/
-        if (author.getId() == null) {
-            logger.info("Id cannot be null.");
-            response.setStatus(HttpStatus.BAD_REQUEST);
-            response.setErrormessage("Id cannot be null.");
-        }else if (!isEmailValid(author.getEmail())) { // if email is NOT valid.
+        if (!isEmailValid(author.getEmail())) { // if email is NOT valid.
             logger.info("Email is invalid.");
             response.setStatus(HttpStatus.BAD_REQUEST);
             response.setErrormessage("Email is invalid.");
@@ -132,17 +128,17 @@ public class AuthorService {
         } else {// else update author
             try {
                 /*checking to see if author we want to update exists in our database or not*/
-                Optional<Author> authorOptional = authorRepository.findById(author.getId());
+                Optional<Author> authorOptional = authorRepository.findById(author.getEmail());
                 if (authorOptional.isPresent()) {
                     /*do update*/
                     Author responseAuthor = authorRepository.save(author);
                     response.setData(responseAuthor);
                     response.setStatus(HttpStatus.OK);
-                    logger.info("Successfully updated author with id: " + author.getId());
+                    logger.info("Successfully updated author with email: " + author.getEmail());
                 } else {
-                    logger.info("Author with id: " + author.getId() + " does not exist.");
+                    logger.info("Author with email " + author.getEmail() + " does not exist.");
                     response.setStatus(HttpStatus.NOT_FOUND);
-                    response.setErrormessage("Author with id: " + author.getId() + " does not exist.");
+                    response.setErrormessage("Author with email: " + author.getEmail() + " does not exist.");
                 }
             } catch (Exception e) {
                 response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -155,28 +151,28 @@ public class AuthorService {
         return response;
     }
 
-    public AuthorResponse deleteAuthor(String id) {
+    public AuthorResponse deleteAuthor(String email) {
         AuthorResponse response = new AuthorResponse();
 
         /*performing validation*/
         /*doing validation*/
-        if (id == null) {
-            logger.info("Id cannot be null.");
+        if (!isEmailValid(email)) {
+            logger.info("Email is invalid.");
             response.setStatus(HttpStatus.BAD_REQUEST);
-            response.setErrormessage("Id cannot be null.");
+            response.setErrormessage("Email is invalid.");
         } else {
             try {
                 /*checking to see if Author we want to delete exists in the database*/
-                Optional<Author> authorOptional = authorRepository.findById(id);
+                Optional<Author> authorOptional = authorRepository.findById(email);
                 if (authorOptional.isPresent()) {
                     /*do delete*/
-                    authorRepository.deleteById(id);
+                    authorRepository.deleteById(email);
                     response.setStatus(HttpStatus.OK);
-                    logger.info("Author with id " + id + " has been deleted successfully.");
+                    logger.info("Author with email " + email + " has been deleted successfully.");
                 }else {
-                    logger.info("Author with id: " + id + " does not exist.");
+                    logger.info("Author with email: " + email + " does not exist.");
                     response.setStatus(HttpStatus.NOT_FOUND);
-                    response.setErrormessage("Author with id: " + id+ " does not exist.");
+                    response.setErrormessage("Author with email: " + email+ " does not exist.");
                 }
             } catch (Exception e) {
                 response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
