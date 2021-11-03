@@ -56,12 +56,12 @@ public class PostController {
     @DeleteMapping(value = "/{title}")
     public ResponseEntity<PostResponse> deletePost(@PathVariable String title) {
         logger.info("Received request to delete post");
-        PostResponse response = postService.deletePost(title);
+        PostResponse response = postService.deletePost(title.trim());
         return new ResponseEntity<>(response, response.getStatus());
     }
 
     /*endpoint to find posts by category*/
-    @GetMapping(value = "/{category}")
+    @GetMapping(value = "/category/{category}")
     public ResponseEntity<PostListResponse> getPostsByCategory(@PathVariable String category) {
         logger.info("Received request to get list of posts with category " + category);
         PostListResponse response = postService.getPostsByCategory(category.trim());

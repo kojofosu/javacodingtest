@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -208,7 +209,13 @@ public class Service {
                     logger.info("Post with title " + title + " already exists");
                     response.setStatus(HttpStatus.CONFLICT);
                     response.setErrormessage("Post with title " + title + " already exists");
-                } else {// else if post does not exist, go ahead and add new post
+                }
+//                else if (post.getCategories() != null && !categoryRepository.existsById(post.getCategories().getName().trim())) {// if the category is not valid, send appropriate response
+//                    logger.info("Category " + post.getCategories() + "  is not valid.");
+//                    response.setStatus(HttpStatus.BAD_REQUEST);
+//                    response.setErrormessage("Category " + post.getCategories() + "  is not valid.");
+//                }
+                else {// else if post does not exist, go ahead and add new post
                     Post responsePost = postRepository.save(post); // adding new post
                     response.setData(responsePost);
                     response.setStatus(HttpStatus.CREATED);
@@ -347,7 +354,24 @@ public class Service {
     public PostListResponse getPostsByCategory(String category) {
         PostListResponse response = new PostListResponse();
 
+        try {
+            /*check if category is even valid or available*/
+            if (categoryRepository.existsById(category)) {// if category is valid, go ahead to fetch posts
 
+                response.setData(postRepository.findByCategories_Name(category));
+                response.setStatus(HttpStatus.OK);
+                logger.info("Successfully fetched post with category : " + category);
+            } else {
+                logger.info("category with name " + category + " does not exist");
+                response.setStatus(HttpStatus.NOT_FOUND);
+                response.setErrormessage("category with name " + category + " does not exist");
+            }
+
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setErrormessage("Error occurred with message: " + e.getMessage());
+            logger.error("Error occurred " + e);
+        }
 
         response.setTimestamp(new Date().toString());
         return response;
