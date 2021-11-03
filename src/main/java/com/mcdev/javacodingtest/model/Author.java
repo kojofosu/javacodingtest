@@ -23,9 +23,9 @@ public class Author {
     @Column(name = "lastname")
     String lastname;
 
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     String email;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 10)
     String phone;
 }
