@@ -46,6 +46,7 @@ public class AuthorService {
                     response.setStatus(HttpStatus.CONFLICT);
                     response.setErrormessage("Author with email " + author.getEmail() + " already exists.");
                 } else {// else if author does not exist, go ahead and add author
+                    author.setEmail(author.getEmail().trim());
                     Author responseAuthor = authorRepository.save(author); // adding author
                     response.setData(responseAuthor);
                     response.setStatus(HttpStatus.CREATED); // using status 201 rather than 200 because it's appropriate.
