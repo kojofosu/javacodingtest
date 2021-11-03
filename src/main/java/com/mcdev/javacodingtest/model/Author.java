@@ -23,7 +23,7 @@ public class Author {
     @Column(name = "lastname")
     String lastname;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     String email;
 
     @Column(name = "phone")
