@@ -41,7 +41,7 @@ public class AuthorService {
             try {
                 /*First checking if the author we are about to add already exists in our database
                  * I am going to do this check using the email since it is unique.*/
-                if (authorRepository.findByEmail(author.getEmail()) != null) {// if author already exists, send error response.
+                if (authorRepository.existsById(author.getEmail())) {// if author already exists, send error response.
                     logger.info("Author with email " + author.getEmail() + " already exists.");
                     response.setStatus(HttpStatus.CONFLICT);
                     response.setErrormessage("Author with email " + author.getEmail() + " already exists.");
@@ -66,9 +66,9 @@ public class AuthorService {
         AuthorResponse response = new AuthorResponse();
         /*checking that email is not null*/
         if (!isEmailValid(email)) {
-            logger.info("email cannot be null.");
+            logger.info("email is invalid.");
             response.setStatus(HttpStatus.BAD_REQUEST);
-            response.setErrormessage("email cannot be null.");
+            response.setErrormessage("email is invalid.");
         } else {
             try{
                 Optional<Author> authorOptional = authorRepository.findById(email);
@@ -155,7 +155,6 @@ public class AuthorService {
         AuthorResponse response = new AuthorResponse();
 
         /*performing validation*/
-        /*doing validation*/
         if (!isEmailValid(email)) {
             logger.info("Email is invalid.");
             response.setStatus(HttpStatus.BAD_REQUEST);
