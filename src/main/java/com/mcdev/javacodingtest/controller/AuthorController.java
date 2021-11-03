@@ -1,7 +1,7 @@
 package com.mcdev.javacodingtest.controller;
 
 import com.mcdev.javacodingtest.config.Config;
-import com.mcdev.javacodingtest.exchange.AuthorService;
+import com.mcdev.javacodingtest.exchange.Service;
 import com.mcdev.javacodingtest.model.Author;
 import com.mcdev.javacodingtest.model.AuthorListResponse;
 import com.mcdev.javacodingtest.model.AuthorResponse;
@@ -17,13 +17,13 @@ public class AuthorController {
     Logger logger = LoggerFactory.getLogger(AuthorController.class);
 
     @Autowired
-    AuthorService authorService;
+    Service service;
 
     /*endpoint to add new author*/
     @PostMapping
     public ResponseEntity<AuthorResponse> addAuthor(@RequestBody Author author) {
         logger.info("Received request to add new author.");
-        AuthorResponse response = authorService.addAuthor(author);
+        AuthorResponse response = service.addAuthor(author);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
@@ -31,7 +31,7 @@ public class AuthorController {
     @GetMapping(value = "/{email}")
     public ResponseEntity<AuthorResponse> getAuthorByEmail(@PathVariable String email) {
         logger.info("Received request to get author with email: " + email);
-        AuthorResponse response = authorService.getAuthorByEmail(email);
+        AuthorResponse response = service.getAuthorByEmail(email);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
@@ -39,7 +39,7 @@ public class AuthorController {
     @GetMapping
     public ResponseEntity<AuthorListResponse> getAuthors() {
         logger.info("Received request to get list of available authors.");
-        AuthorListResponse response = authorService.getAuthorList();
+        AuthorListResponse response = service.getAuthorList();
         return new ResponseEntity<>(response, response.getStatus());
     }
 
@@ -47,7 +47,7 @@ public class AuthorController {
     @PutMapping
     public ResponseEntity<AuthorResponse> updateAuthor(@RequestBody Author author) {
         logger.info("Received request to update author with email " + author.getEmail());
-        AuthorResponse response = authorService.updateAuthor(author);
+        AuthorResponse response = service.updateAuthor(author);
         return new ResponseEntity<>(response, response.getStatus());
     }
 
@@ -55,7 +55,7 @@ public class AuthorController {
     @DeleteMapping(value = "/{email}")
     public ResponseEntity<AuthorResponse> deleteAuthor(@PathVariable String email) {
         logger.info("Received request to delete author with email: " + email);
-        AuthorResponse response = authorService.deleteAuthor(email);
+        AuthorResponse response = service.deleteAuthor(email);
         return new ResponseEntity<>(response, response.getStatus());
     }
 }

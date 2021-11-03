@@ -1,7 +1,7 @@
 package com.mcdev.javacodingtest.controller;
 
 import com.mcdev.javacodingtest.config.Config;
-import com.mcdev.javacodingtest.exchange.CategoryService;
+import com.mcdev.javacodingtest.exchange.Service;
 import com.mcdev.javacodingtest.model.Category;
 import com.mcdev.javacodingtest.model.CategoryListResponse;
 import com.mcdev.javacodingtest.model.CategoryResponse;
@@ -17,7 +17,7 @@ public class CategoryController {
     Logger logger = LoggerFactory.getLogger(CategoryController.class);
 
     @Autowired
-    CategoryService categoryService;
+    Service categoryService;
 
     /*endpoint to add new category*/
     @PostMapping

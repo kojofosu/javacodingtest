@@ -2,7 +2,7 @@ package com.mcdev.javacodingtest.controller;
 
 
 import com.mcdev.javacodingtest.config.Config;
-import com.mcdev.javacodingtest.exchange.PostService;
+import com.mcdev.javacodingtest.exchange.Service;
 import com.mcdev.javacodingtest.model.Post;
 import com.mcdev.javacodingtest.model.PostListResponse;
 import com.mcdev.javacodingtest.model.PostResponse;
@@ -18,7 +18,7 @@ public class PostController {
     Logger logger = LoggerFactory.getLogger(PostController.class);
 
     @Autowired
-    PostService postService;
+    Service postService;
 
     /*endpoint to add new post*/
     @PostMapping
@@ -57,6 +57,14 @@ public class PostController {
     public ResponseEntity<PostResponse> deletePost(@PathVariable String title) {
         logger.info("Received request to delete post");
         PostResponse response = postService.deletePost(title);
+        return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    /*endpoint to find posts by category*/
+    @GetMapping(value = "/{category}")
+    public ResponseEntity<PostListResponse> getPostsByCategory(@PathVariable String category) {
+        logger.info("Received request to get list of posts with category " + category);
+        PostListResponse response = postService.getPostsByCategory(category.trim());
         return new ResponseEntity<>(response, response.getStatus());
     }
 }
