@@ -17,7 +17,7 @@ public class Category {
     @Column(name = "id", unique = true, nullable = false)
     String id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     String name;
 
     @Column(name = "description")

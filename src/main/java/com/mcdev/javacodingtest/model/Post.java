@@ -17,7 +17,7 @@ public class Post {
     @Column(name = "id", unique = true, nullable = false)
     String id;
 
-    @Column(name = "title")
+    @Column(name = "title", unique = true, nullable = false)
     String title;
 
     @Column(name = "text")
