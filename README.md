@@ -198,3 +198,17 @@ To run the project locally, follow the steps below;
 1. Clone project
 2. cd into the projects root directory
 3. Run tests with command `mvn test`
+
+## DATABASE
+The H2 memory database was used for this project.
+To access and view database, visit the [H2 Console](https://javacodingtest.herokuapp.com/h2)
+
+Credentials below
+```
+  driver class : org.h2.Driver
+  JDBC URL : jdbc:h2:file:./data/codingtestdb
+  user name : sa
+  password : 
+```
+
+`NOTE` This is a volatile memory and data may be lost over a period of time
