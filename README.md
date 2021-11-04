@@ -128,3 +128,64 @@ To run the project locally, follow the steps below;
   - Returns `400 BAD_REQUEST` when category name is null or empty
   - Returns `404 NOT_FOUND` when no category exists with specified name
   - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+
+### POST
+`/post`
+- `POST '/'`
+  - Add new post
+  - Returns status `201 CREATED` when successful
+  - Returns status `400 BAD_REQUEST` when title is null or empty
+  - Returns status `409 CONFLICT` when post with that title already exists
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+  - sample request body
+```json
+{
+  "title": "Accra",
+  "text": "accra is dangerous",
+  "categories": [
+    {
+      "name": "LIVE",
+      "posts": [
+        {
+        "title": "Accra"
+        }
+      ]
+    }
+  ],
+  "author": {
+    "email": "edue@gmail.com"
+  }
+}
+```
+
+
+- `GET '/`
+  - Get list of posts
+  - Returns status `200 OK` when successful
+  - Returns an empty list with status `200 OK` when empty
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `GET '/{title}'`
+  - Fetch post by its title
+  - Returns status `200 OK` when successful
+  - Returns status `400 BAD_REQUEST` when title is empty or null
+  - Returns status `404 NOT_FOUND` when post with specified title does not exist
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `PUT '/'`
+  - Update a post
+  - Returns `400 BAD_REQUEST` when title is null or empty
+  - Returns `404 NOT_FOUND` when no post exists with specified title
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `DELETE '/{tile]`
+  - Delete a post
+  - Returns status `200 OK` when successful
+  - Returns status `400 BAD_REQUEST` when title is empty or null
+  - Returns status `404 NOT_FOUND` when no post with specified title exists
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
