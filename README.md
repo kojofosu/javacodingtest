@@ -17,6 +17,9 @@ This is a Java Spring boot API for creating and managing posts.
 ## PRODUCTION
 The API is hosted on [heroku](https://www.heroku.com/). To access the API, visit [here](https://javacodingtest.herokuapp.com)
 
+`NOTE`: Server goes to sleep when inactive so may take longer to load on first try.
+
+
 ## LOCAL
 ### Prerequisites
 
@@ -189,3 +192,9 @@ To run the project locally, follow the steps below;
   - Returns status `400 BAD_REQUEST` when title is empty or null
   - Returns status `404 NOT_FOUND` when no post with specified title exists
   - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+## RUN TESTS
+1. Clone project
+2. cd into the projects root directory
+3. Run tests with command `mvn test`
