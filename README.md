@@ -80,3 +80,51 @@ To run the project locally, follow the steps below;
   - Returns `400 BAD_REQUEST` when email is invalid
   - Returns `404 NOT_FOUND` when no author exists with that email
   - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+  
+### CATEGORY
+`/category`
+- `POST '/'`
+  - Add new category
+  - Return status `200 CREATED` when successful
+  - Returns status `400 BAD_REQUEST` when category name is null or empty
+  - Returns status `409 CONFLICT` when category already exists with specified name
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+  - sample request body
+```json
+    {
+      "name": "LIVE",
+      "description": "it is LIVE"
+    }
+```
+
+
+- `GET '/'`
+  - Fetch list of categories
+  - Returns status `200 OK` when successful
+  - Returns an empty list with status `200 OK` when empty.
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `GET '/{name}'`
+  - Fetch category by its name
+  - Returns status `200 OK` when successful
+  - Returns status `400 BAD_REQUEST` when is null or empty
+  - Return status `404 NOT_FOUND` when no category with that name exists
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `PUT '/'`
+  - Update category
+  - Returns status `200 OK` when successful
+  - Returns status `400 BAD_REQUEST` when category name is empty or null
+  - Returns status `404 NOT_FOUND` when no category with specified name exists
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
+- `DELETE '/{name}`
+  - Delete a category
+  - Returns status `200 OK` when successful
+  - Returns `400 BAD_REQUEST` when category name is null or empty
+  - Returns `404 NOT_FOUND` when no category exists with specified name
+  - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
