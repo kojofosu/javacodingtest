@@ -12,6 +12,22 @@ This is a Java Spring boot API for creating and managing posts.
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [JUnit](https://junit.org/junit5/) - The testing framework
 
+
+## TASKS
+- [x] Add tests
+- [x] Document api for easy setup
+- [x] Host api
+- [x] Add anything that will make api more robust and useful
+- [x] I should be able to create, update, delete and view a user and view list of users with postman
+- [x] I should be able to create, update, delete and view a Post and view a list of posts with postman.
+- [x] I should be able to create, update, delete and view a category and view a list of categories with postman.
+- [x] I should be able to get a list of posts under a particular category
+- [x] I should not be able to create two authors with the same email
+- [x] I should not be able to use with an invalid email or phone number
+- [x] I should not be able to create, update categories and posts with the same title/name (validate uniqueness)
+- [x] Add your own creativity to make api standard
+
+
 ## Getting Started
 
 ## PRODUCTION
