@@ -195,6 +195,13 @@ To run the project locally, follow the steps below;
   - Returns status `500 INTERNAL_SERVER_ERROR` when an exception is caught
 
 
+- `GET '/category/{category}'`
+  - Fetch list of posts per a particular category
+  - Returns `200 OK` when successful
+  - Returns `404 NOT_FOUND` when category does not exist
+  - Returns `500 INTERNAL_SERVER_ERROR` when an exception is caught
+
+
 - `PUT '/'`
   - Update a post
   - Returns `400 BAD_REQUEST` when title is null or empty
