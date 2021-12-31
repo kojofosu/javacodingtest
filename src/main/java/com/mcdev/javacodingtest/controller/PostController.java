@@ -3,6 +3,7 @@ package com.mcdev.javacodingtest.controller;
 
 import com.mcdev.javacodingtest.config.Config;
 import com.mcdev.javacodingtest.exchange.Service;
+import com.mcdev.javacodingtest.model.Counter;
 import com.mcdev.javacodingtest.model.Post;
 import com.mcdev.javacodingtest.model.PostListResponse;
 import com.mcdev.javacodingtest.model.PostResponse;
@@ -66,5 +67,17 @@ public class PostController {
         logger.info("Received request to get list of posts with category " + category);
         PostListResponse response = postService.getPostsByCategory(category.trim());
         return new ResponseEntity<>(response, response.getStatus());
+    }
+
+    @PostMapping(value = "/count")
+    public Counter addCount(@RequestBody Counter counter) {
+        logger.info("Received request to add count");
+        return postService.addCounter(counter);
+    }
+
+    @GetMapping(value = "/count/{username}")
+    public Counter getCount(@PathVariable String username) {
+        logger.info("Received request to get count");
+        return postService.getCount(username);
     }
 }

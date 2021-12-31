@@ -3,6 +3,7 @@ package com.mcdev.javacodingtest.exchange;
 import com.mcdev.javacodingtest.model.*;
 import com.mcdev.javacodingtest.repository.AuthorRepository;
 import com.mcdev.javacodingtest.repository.CategoryRepository;
+import com.mcdev.javacodingtest.repository.CounterRepository;
 import com.mcdev.javacodingtest.repository.PostRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +23,14 @@ public class Service {
     AuthorRepository authorRepository;
     CategoryRepository categoryRepository;
     PostRepository postRepository;
+    CounterRepository counterRepository;
 
     @Autowired
-    public Service(AuthorRepository authorRepository, CategoryRepository categoryRepository, PostRepository postRepository) {
+    public Service(AuthorRepository authorRepository, CategoryRepository categoryRepository, PostRepository postRepository, CounterRepository counterRepository) {
         this.authorRepository = authorRepository;
         this.categoryRepository = categoryRepository;
         this.postRepository = postRepository;
+        this.counterRepository = counterRepository;
         logger.info("Author service initialized.");
     }
 
@@ -542,5 +545,15 @@ public class Service {
         } else {
             return false; // returns false when email is blank
         }
+    }
+
+    public Counter addCounter(Counter counter) {
+        return counterRepository.save(counter);
+    }
+
+    public Counter getCount(String username) {
+        Optional<Counter> c = counterRepository.findById(username);
+        int i = c.get().getCount();
+        return counterRepository.save(new Counter(username, i+1));
     }
 }
